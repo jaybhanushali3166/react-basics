@@ -21,7 +21,8 @@ var config = {
                 }
             }
         ]
-    }
+    },
+    devtool: 'eval'
 };
 
 module.exports = config;

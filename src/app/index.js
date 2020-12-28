@@ -1,50 +1,30 @@
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
+import { Route } from "react-router-dom";
+const BrowserRouter = require("react-router-dom").BrowserRouter;
 
-import { Header } from './components/Header';
-import { Home } from './components/Home';
+import { Root } from "./components/Root";
+import { Home } from "./components/Home";
+import { User } from "./components/User";
 
 class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            homeLink: "Home"
-        }
-    }
-
-    greet() {
-        alert("Hello!!! In parent")
-    }
-    onChangeLinkName(newName) {
-        this.setState({
-            homeLink: newName
-        })
-    }
-
     render() {
-
-
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-xs-10 col-xs-offset-1">
-                        <Header homeLink={this.state.homeLink} />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-xs-10 col-xs-offset-1">
-                        <Home
-                            changeLink={this.onChangeLinkName.bind(this)}
-                            name={"Jay"}
-                            greet={this.greet}
-                            initialAge={23}
-                            initialLinkName={this.state.homeLink}
-                        />
-                    </div>
-                </div>
-            </div>
+            // <Router history={browserHistory}>
+            //     <Route path={"/"} component={Root}>
+            //         <Route path={"/user"} component={User} />
+            //         <Route path={"/home"} component={Home} />
+            //     </Route>
+            // </Router>
+            <BrowserRouter>
+                {/* this is not how you declare a parent <Route path="/" component={Root}/> */}
+                <Root>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/user/:id" component={User} />
+                </Root>
+            </BrowserRouter>
         )
     }
 }
-
-render(<App />, window.document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById('app'));
